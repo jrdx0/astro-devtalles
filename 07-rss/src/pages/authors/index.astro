@@ -1,0 +1,22 @@
+---
+import type { GetStaticPaths } from "astro";
+import MainLayout from "src/layouts/MainLayout.astro";
+import { getCollection } from "astro:content";
+
+import { SITE_CONFIG } from "src/config/site-config";
+import AuthorCard from "src/components/AuthorCard.astro";
+
+const authors = await getCollection("author");
+---
+
+<MainLayout title="Listado de autores">
+  <section>
+    <h1 class="text-3xl font-semibold capitalize lg:text-4xl text-white">
+      {SITE_CONFIG.title}
+    </h1>
+  </section>
+
+  <section class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+    {authors.map((author) => <AuthorCard author={author} />)}
+  </section>
+</MainLayout>
